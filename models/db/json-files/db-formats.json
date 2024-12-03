@@ -1,0 +1,44 @@
+{
+    "users": {
+        "userId": "unique_id",
+        "firstname": "name",
+        "lastname": "name",
+        "email": "example@example.come",
+        "profilePhotoUrl": "https://url-to-photo.com",
+        "bio": "user biography",
+        "username": "username of the user (unique)",
+        "password": "hased_password",
+        "oAuthProvider": "GitHub",
+        "providerUserId": "userId from oAuthProvider",
+        "accountType": "user/admin/fullControl",
+        "createdAt": "timestamp"
+    },
+    "books": {
+        "bookId": "unique_id",
+        "title": "book title",
+        "author": "writer/s name",
+        "genre": "Fiction",
+        "publishedDate": "date of publication (DATE)",
+        "summary": "Brief summary of the book",
+        "totalCopies": 15,
+        "availableCopies": 9,
+        "createdAt": "timestamp"
+    },
+    "borrowRecords": {
+        "recordId": "unique_id",
+        "userId": "unique_id",
+        "bookId": "unique_id",
+        "borrowDate": "timestamp",
+        "returnDate": "timestamp",
+        "isReturned": false,
+        "penalise": false
+    },
+    "reviews": {
+        "reviewId": "unique_id",
+        "bookId": "unique_id",
+        "userId": "unique_id",
+        "rating": 4,
+        "comment": "Awesome Book!",
+        "createdAt": "timestamp"
+    }
+}

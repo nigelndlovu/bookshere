@@ -1,0 +1,31 @@
+//LOCALHOST
+### Get All Books
+GET http://localhost:6000/bookshere
+
+### Get Book By Id
+
+
+### Add New Book
+
+
+### Update a Book
+
+
+### Delete a Book
+
+
+// PRODUCTION
+### Get All Books
+
+
+### Get Book By Id
+
+
+### Add New Book
+
+
+### Update a Book
+
+
+### Delete a Book
+
