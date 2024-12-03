@@ -2,7 +2,7 @@
 // BUILD FUNCTIONS
 
 // Display Home
-async function displayHome (req, res) {
+async function displayHome(req, res) {
     //#swagger.tags=['Home']
     const homeData = {
         welcomeMsg: `Welcome to Team Thursday 1pm MT Web Services BookShere! BookSphere API is a tool that makes managing and accessing library resources easy and efficient.
