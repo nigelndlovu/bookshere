@@ -16,7 +16,7 @@ const router = express.Router();
 router.get('/', baseController.displayHome);
 
 // api-docs route
-// router.use('/', swaggerRoute);
+router.use('/', require('./swagger'));
 
 // api-books route
 router.use('/books', bookRoute);
