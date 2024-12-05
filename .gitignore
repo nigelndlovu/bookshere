@@ -3,3 +3,5 @@
 # NOTE: The .env file is commented because it is needed for team collaboration. comment to be removed by the end of the project
 # .env
 node_modules
+
+CSE341TeamProjectInfo.txt
