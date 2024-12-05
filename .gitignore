@@ -1,7 +1,7 @@
 # Ignor all files below (do not include the files below when running git push)
 
 # NOTE: The .env file is commented because it is needed for team collaboration. comment to be removed by the end of the project
-# .env
+.env
 node_modules
 
 CSE341TeamProjectInfo.txt

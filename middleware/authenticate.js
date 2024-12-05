@@ -38,8 +38,8 @@ authenticate.isAuthenticatedAdmin = async (req, res, next) => {
         const userData = await usersDb.findOne({ _id: userId });
         console.log(userData);  // for visualizing and testing purpose
         if (userData) {
-            // authenticate using accountType
-            if (!adminRight.includes(req.session.user.accountType)) {
+            // authenticate using accountType in userData
+            if (!adminRight.includes(userData.accountType)) {
                 return res.status(401).json({ message: "Require admin right: You don't have access." });
             }
         } else {
@@ -70,7 +70,7 @@ authenticate.isAuthenticatedFullControl = async (req, res, next) => {
         console.log(userData);  // for visualizing and testing purpose
         if (userData) {
             // authenticate using accountType
-            if (!fullControlRight.includes(req.session.user.accountType)) {
+            if (!fullControlRight.includes(userData.accountType)) {
                 return res.status(401).json({ message: "Require full-control right: You don't have access." });
             }
         } else {

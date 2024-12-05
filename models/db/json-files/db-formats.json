@@ -1,6 +1,6 @@
 {
     "users": {
-        "userId": "unique_id",
+        "_id": "unique_id",
         "firstname": "name",
         "lastname": "name",
         "email": "example@example.come",
@@ -14,7 +14,7 @@
         "createdAt": "timestamp"
     },
     "books": {
-        "bookId": "unique_id",
+        "_id": "unique_id",
         "title": "book title",
         "author": "writer/s name",
         "genre": "Fiction",
@@ -25,7 +25,7 @@
         "createdAt": "timestamp"
     },
     "borrowRecords": {
-        "recordId": "unique_id",
+        "_id": "unique_id",
         "userId": "unique_id",
         "bookId": "unique_id",
         "borrowDate": "timestamp",
@@ -34,7 +34,7 @@
         "penalise": false
     },
     "reviews": {
-        "reviewId": "unique_id",
+        "_id": "unique_id",
         "bookId": "unique_id",
         "userId": "unique_id",
         "rating": 4,

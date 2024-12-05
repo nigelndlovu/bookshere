@@ -1,6 +1,6 @@
 // IMPORT REQUIRED MODULES
 const express = require('express');
-const validatebook = require('../middleware/validation/book-validation');
+const validateBook = require('../middleware/validation/book-validation');
 const authenticate = require('../middleware/authenticate');
 
 // IMPORT CONTROLLER
@@ -22,9 +22,13 @@ const router = express.Router();
 // );
 
 // Route to update a book
-// router.put('/:id',
-//     bookController.updateAbook
-// );
+router.put('/:id',
+    authenticate.checkLogin,  // check if user is logged in
+    authenticate.isAuthenticatedAdmin,  // check if user is an admin at least
+    validateBook.updateBookRules(),
+    validateBook.checkUpdateBook,
+    bookController.updateAbook
+);
 
 // Route to delete a book
 // router.delete('/:id',

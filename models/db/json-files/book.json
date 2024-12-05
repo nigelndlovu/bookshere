@@ -1,0 +1,11 @@
+{
+    "_id": "675154f6dce7cf8510d37206",
+    "title": "book title",
+    "author": "writer/s name",
+    "genre": "Fiction",
+    "publishedDate": "25/22/2000",
+    "summary": "Brief summary of the book",
+    "totalCopies": 15,
+    "availableCopies": 9,
+    "createdAt": "10001000"
+}
