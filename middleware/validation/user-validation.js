@@ -94,13 +94,7 @@ validate.addNewUserRules = () => {
         .notEmpty()
         .isLength({min: 7})
         .isAlphanumeric()
-        .withMessage('password is required, with a minimum of 7 alpha-numeric characters'),
-
-        body('accountType')
-        .trim()
-        .notEmpty()
-        .isIn(accountType)
-        .withMessage(`account type must be at least one of the two ${accountType[0]} or ${accountType[1]}`)
+        .withMessage('password is required, with a minimum of 7 characters, and must be only lettes and numbers'),
     ]
 }
 // CHECK NEW User VALIDATION
