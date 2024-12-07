@@ -34,8 +34,14 @@ userController.getAllUsers = async function(req, res) {
 // Get a User by User id
 userController.getAUser = async function(req, res) {
     //#swagger.tags=['User routes']
-    const userId = new ObjectId(req.params.id);
-    console.log(`UserId: ${userId}`); // for debugging purpose
+    let userId;
+    try {
+        userId = new ObjectId(req.params.id);
+        console.log(`userId: ${userId}`);  // for testing purpose
+    } catch(err) {
+        return res.status(500).send({ error: "error occured while getting object id", posibleReason: "invalid objectId" })
+    }
+    console.log(`userId: ${userId}`); // for debugging purpose
     try {
         const dataResult = await mongodb.getDb().db(dbName).collection(userCollectionName).find({_id: userId});
         dataResult.toArray((err)=> {
@@ -149,7 +155,14 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
 userController.updateAUser = async function(req, res) {
     //#swagger.tags=['User routes']
     // get logged in user Id
-    const userId = new ObjectId(req.session.user._id);
+    let userId;
+    try {
+        userId = new ObjectId(req.params.id);
+        console.log(`userId: ${userId}`);  // for testing purpose
+    } catch(err) {
+        return res.status(500).send({ error: "error occured while getting object id", posibleReason: "invalid objectId" })
+    }
+    console.log(`userId: ${userId}`); // for debugging purpose
 
     let userObject = {
         _id: userId,
@@ -225,8 +238,14 @@ userController.updateAUser = async function(req, res) {
 // Delete a User
 userController.deleteAUser = async function(req, res) {
     //#swagger.tags=['User routes']
-    const userId = new ObjectId(req.params.id);
-    console.log(`UserId: ${userId}`);  // for testing purpose
+    let userId;
+    try {
+        userId = new ObjectId(req.params.id);
+        console.log(`userId: ${userId}`);  // for testing purpose
+    } catch(err) {
+        return res.status(500).send({ error: "error occured while getting object id", posibleReason: "invalid objectId" })
+    }
+    console.log(`userId: ${userId}`); // for debugging purpose
 
     try {
         const response = await mongodb.getDb().db(dbName).collection(userCollectionName).deleteOne({ _id: userId });
