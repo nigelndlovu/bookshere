@@ -93,8 +93,8 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request"
@@ -269,6 +269,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "password": {
+                  "example": "any"
+                },
                 "firstname": {
                   "example": "any"
                 },
@@ -278,16 +281,10 @@
                 "email": {
                   "example": "any"
                 },
-                "profilePhotoUrl": {
-                  "example": "any"
-                },
                 "bio": {
                   "example": "any"
                 },
                 "username": {
-                  "example": "any"
-                },
-                "password": {
                   "example": "any"
                 }
               }
@@ -295,8 +292,8 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request"

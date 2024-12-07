@@ -67,34 +67,45 @@ userController.getAUser = async function(req, res) {
 // Create a User
 userController.addNewUser = async function(req, res) {
     //#swagger.tags=['User routes']
-    let userObject = {
+
+    // hash passward
+    let passowrdHash;
+    try {
+        passowrdHash = bcrypt.hashSync(req.body.password);
+    } catch (err) {
+        logError(err);
+        return res.status(500).send({message: err});
+    }
+
+    const UserObject = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        profilePhotoUrl: req.body.profilePhotoUrl,
+        profilePhotoUrl: null,
         bio: req.body.bio,
-        username: req.body.username == 'any' || req.body.username == 'null' ? null : req.body.username,
-        password: req.body.password == 'any' || req.body.password == 'null' ? null : bcrypt.hashSync(req.body.password),
-        oAuthProvider: req.session.user.oAuthProvider,
-        providerUserId : req.session.user.providerUserId,
-        accountType: req.session.user.accountType,
-        createdAt : req.session.user.createdAt,
+        username: req.body.username,
+        password: passowrdHash,
+        oAuthProvider: null,
+        providerUserId : null,
+        accountType: 'user',
+        createdAt : Date.now()
     };
 
     try {
-        const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(userObject);
+        const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(UserObject);
+        console.log(response);  // for visualizing and testing purpose
         if (response.acknowledged) {
             const msg = "new user added successfully";
             console.log(msg);  // testing purpose
             res.status(200).send({ message: msg });
         } else {
-            const msg = "some error occurred while adding new user.";
+            const msg = "fail to add new user";
             console.log(msg);  // for testing purpose
-            res.status(500).send(response.error || { message: msg });
+            res.status(500).send({ message: msg });
         }
-    } catch(err) {
+    } catch (err) {
         console.error(err);
-        res.status(500).send({ message: err } || "Error occured while attempting to add a user");
+        res.status(500).send({ message: err} || "Error occured while inserting new user");
     }
 }
 
@@ -154,15 +165,8 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
 // Update a User
 userController.updateAUser = async function(req, res) {
     //#swagger.tags=['User routes']
-    // get logged in user Id
-    let userId;
-    try {
-        userId = new ObjectId(req.params.id);
-        console.log(`userId: ${userId}`);  // for testing purpose
-    } catch(err) {
-        return res.status(500).send({ error: "error occured while getting object id", posibleReason: "invalid objectId" })
-    }
-    console.log(`userId: ${userId}`); // for debugging purpose
+    // get logged in user Id (for updating only logged in user account)
+    const userId = req.session.user._id;
 
     let userObject = {
         _id: userId,

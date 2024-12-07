@@ -11,128 +11,97 @@ const userCollectionName = process.env.USER_COLLECTION;  // store name of user c
 
 // VALIDATE NEW User VALUES
 validate.addNewUserRules = () => {
+    // Enum checks
+    const accountType = ['user', 'contributor'];
     return [
         body('firstname')
-        .custom( async (value, { req }) => {
-            const nameValue = value.trim();
-            if (nameValue != '' && nameValue != null && nameValue != 'null' && nameValue != 'any') {
-                if (nameValue.length < 2) {
-                    throw new Error('firstname is too short');
-                }
-            }
-
-            return true;
-        }),
+        .trim()
+        .escape()
+        .isString()
+        .notEmpty()
+        .isLength({min: 2})
+        .withMessage("firstname should not be empty"),
 
         body('lastname')
-        .custom( async (value, { req }) => {
-            const nameValue = value.trim();
-            console.log(`nameValue-Lastname: ${nameValue}`);  // for debugging purpose
-            if (nameValue != '' && nameValue != null && nameValue != 'null' && nameValue != 'any') {
-                if (nameValue.length < 2) {
-                    throw new Error('lastname is too short');
-                }
-            }
-
-            return true;
-        }),
+        .trim()
+        .isString()
+        .notEmpty()
+        .isLength({min: 2})
+        .withMessage("firstname should not be empty"),
 
         body('email')
         .custom( async (value, { req }) => {
             const emailValue = value.trim();
-            if (emailValue != null) {
-                if (emailValue == '') {
-                    req.body.email = null;  // set email to null;  // this is not working (a value of '' will automatically be set to null)
-                } else {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(emailValue)) {
-                        throw new Error("invalid email format: please enter a valid email address e.g 'example@example.com'");
-                    }
-                }
-
-                // check if email doesn't already exist in db
-                try {
-                    const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
-                    const userData = await usersDb.findOne({ email: emailValue });
-                    console.log(userData);  // for visualizing and testing purpose
-                    if (userData && userData.email != emailValue) {
-                        // authenticate using accountType
-                        throw new Error("email already exist");
-                    }
-                } catch (err) {
-                    throw new Error(err);
-                }
+            if (emailValue == null || emailValue == '') {
+                throw new Error('Email should not be empty');
             }
 
-            return true;
-        }),
-
-        body('profilePhotoUrl')
-        .custom((value, { req }) => {
-            const imageUrlValue = value.trim();
-            if (imageUrlValue != null) {
-                if (imageUrlValue == '') {
-                    req.body.profilePhotoUrl = null;  // set email to null;
-                } else {
-                    try {
-                        new URL(imageUrlValue);
-                    } catch(err) {
-                        throw new Error('invalid url format: please provide a valid url for your profile picture');
-                    }
-                }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailValue)) {
+                throw new Error("invalid email format: please enter a valid email address e.g 'example@example.com'");
             }
+
+            // check if email doesn't already exist in db
+            try {
+                const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
+                const userData = await usersDb.findOne({ email: emailValue });
+                console.log(userData);  // for visualizing and testing purpose
+                if (userData) {
+                    // authenticate using accountType
+                    throw new Error("email already exist");
+                }
+            } catch (err) {
+                throw new Error(err);
+            }
+
             return true;
         }),
 
         body('username')
         .custom( async (value, { req }) => {
             const usernameValue = value.trim();
-            if (usernameValue != null) {
-                if (usernameValue == '' || usernameValue == null || usernameValue == 'null' || usernameValue == 'any') {
-                    req.body['username'] = null;  // set username to null;  // this is not working
-                } else {
-                    if (usernameValue.length < 6) {
-                        throw new Error("username should not be less than 6 characters");
-                    }
-                }
-
-                // check if username doesn't already exist in db
-                try {
-                    const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
-                    const userData = await usersDb.findOne({ username: usernameValue });
-                    console.log(userData);  // for visualizing and testing purpose
-                    if (userData && userData.username != usernameValue) {
-                        // authenticate using accountType
-                        throw new Error("username already exist");
-                    }
-                } catch (err) {
-                    throw new Error(err);
-                }
+            if (usernameValue == null || usernameValue == '') {
+                throw new Error('Username should not empty');
             }
 
-            return true;
-        }),
+            if (usernameValue.length < 6) {
+                throw new Error("username should not be less than 6 characters");
+            }
 
-        body('password')
-        .custom((value, { req }) => {
-            const passwordValue = value.trim();
-            if (passwordValue != null) {
-                if (passwordValue == '' || passwordValue == null || passwordValue == 'null' || passwordValue == 'any') {
-                    req.body.password = null;  // set email to null;  // this is not working
-                } else {
-                    const passwordRegex = /^[a-zA-Z0-9]{7,}$/;
-                    if (!passwordRegex.test(passwordValue)) {
-                        throw new Error("password must be at least 7 characters long and aplphanumeric.");
-                    }
+            // check if username doesn't already exist in db
+            try {
+                const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
+                const userData = await usersDb.findOne({ username: usernameValue });
+                console.log(userData);  // for visualizing and testing purpose
+                if (userData) {
+                    // authenticate using accountType
+                    throw new Error("username already exist");
                 }
+            } catch (err) {
+                throw new Error(err);
             }
 
             return true;
         }),
 
         body('bio')
-        .trim(),
-    ];
+        .trim()
+        .isString()
+        .withMessage("biography must be a string value"),
+
+        body('password')
+        .trim()
+        .notEmpty()
+        .isLength({min: 7})
+        .isAlphanumeric()
+        .withMessage('password is required, with a minimum of 7 alpha-numeric characters'),
+
+        body('accountType')
+        .trim()
+        .notEmpty()
+        .isIn(accountType)
+        .withMessage(`account type must be at least one of the two ${accountType[0]} or ${accountType[1]}`)
+    ]
 }
 // CHECK NEW User VALIDATION
 validate.checkNewUser = (req, res, next) => {
