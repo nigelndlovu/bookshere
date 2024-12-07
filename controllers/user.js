@@ -26,6 +26,26 @@ userController.getAUser = async function(req, res) {
 // Create a User
 userController.addNewUser = async function(req, res) {
     //#swagger.tags=['User routes']
+    let userObject = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        profilePhotoUrl: req.body.profilePhotoUrl,
+        bio: req.body.bio,
+        username: req.body.username == 'any' || req.body.username == 'null' ? null : req.body.username,
+        password: req.body.password == 'any' || req.body.password == 'null' ? null : bcrypt.hashSync(req.body.password),
+        oAuthProvider: req.session.user.oAuthProvider,
+        providerUserId : req.session.user.providerUserId,
+        accountType: req.session.user.accountType,
+        createdAt : req.session.user.createdAt,
+    };
+
+    const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(userObject);
+    if (response.acknowledged > 0) {
+        res.status(204).send();
+    } else {
+        res.status(500).json(response.error || 'Some error occurred while adding the user.');
+    }
     
 }
 

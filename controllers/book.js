@@ -22,8 +22,23 @@ bookController.getAbook = async function(req, res) {
 
 // Create a book
 bookController.addNewbook = async function(req, res) {
-    //#swagger.tags=['book routes']
-    
+    //#swagger.tags=['book routes']    
+    let bookObject = {
+        title: req.body.title,
+        author: req.body.author,
+        genre: req.body.genre,
+        publishedDate: req.body.publishedDate,
+        summary: req.body.summary,
+        totalCopies: req.body.totalCopies,
+        availableCopies: req.body.availableCopies,
+    };
+
+    const response = await mongodb.getDb().db(dbName).collection(bookCollectionName).insertOne(bookObject);
+    if (response.acknowledged > 0) {
+        res.status(204).send();
+    } else {
+        res.status(500).json(response.error || 'Some error occurred while adding the book.');
+    }
 }
 
 // Update a book
