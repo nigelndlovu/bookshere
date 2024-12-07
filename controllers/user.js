@@ -69,22 +69,14 @@ userController.addNewUser = async function(req, res) {
     //#swagger.tags=['User routes']
 
     // hash passward
-    let passowrdHash;
-    try {
-        passowrdHash = bcrypt.hashSync(req.body.password);
-    } catch (err) {
-        logError(err);
-        return res.status(500).send({message: err});
-    }
-
-    const UserObject = {
+    const userObject = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
         profilePhotoUrl: null,
         bio: req.body.bio,
         username: req.body.username,
-        password: passowrdHash,
+        password: req.body.password,
         oAuthProvider: null,
         providerUserId : null,
         accountType: 'user',
@@ -92,7 +84,15 @@ userController.addNewUser = async function(req, res) {
     };
 
     try {
-        const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(UserObject);
+        const passowrdHash = bcrypt.hashSync(req.body.password);
+        userObject.password = passowrdHash;
+    } catch (err) {
+        logError(err);
+        return res.status(500).send({message: err});
+    }
+
+    try {
+        const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(userObject);
         console.log(response);  // for visualizing and testing purpose
         if (response.acknowledged) {
             const msg = "new user added successfully";
