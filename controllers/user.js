@@ -14,13 +14,48 @@ const userController = {};
 // Get all Users
 userController.getAllUsers = async function(req, res) {
     //#swagger.tags=['User routes']
-
+    try {
+        const dataResult = await mongodb.getDb().db(dbName).collection(userCollectionName).find();
+        dataResult.toArray((err)=> {
+            if (err) {
+                logError(err);
+                return res.status(400).json({message: err});
+            }
+        }).then((Users) => {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(Users);
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: err}) || "Error occured while trying to fetch all Users";
+    }
 }
 
 // Get a User by User id
 userController.getAUser = async function(req, res) {
     //#swagger.tags=['User routes']
-    
+    const userId = new ObjectId(req.params.id);
+    console.log(`UserId: ${userId}`); // for debugging purpose
+    try {
+        const dataResult = await mongodb.getDb().db(dbName).collection(userCollectionName).find({_id: userId});
+        dataResult.toArray((err)=> {
+            if (err) {
+                logError(err);
+                return res.status(400).json({message: err});
+            }
+        }).then((Users) => {
+            // check if array is empty
+            console.log(`Users: ${Users}`);  // for debugging purpose
+            if (Users == null || Users == [] || Users == '') {
+                return res.status(404).json({message: `User with id: ${userId}; Not found, or is empty`});
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(Users);
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: err}) || `Error occured while trying to fetch User with id: ${userId}`;
+    }
 }
 
 // Create a User
@@ -40,13 +75,21 @@ userController.addNewUser = async function(req, res) {
         createdAt : req.session.user.createdAt,
     };
 
-    const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(userObject);
-    if (response.acknowledged > 0) {
-        res.status(204).send();
-    } else {
-        res.status(500).json(response.error || 'Some error occurred while adding the user.');
+    try {
+        const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(userObject);
+        if (response.acknowledged) {
+            const msg = "new user added successfully";
+            console.log(msg);  // testing purpose
+            res.status(200).send({ message: msg });
+        } else {
+            const msg = "some error occurred while adding new user.";
+            console.log(msg);  // for testing purpose
+            res.status(500).send(response.error || { message: msg });
+        }
+    } catch(err) {
+        console.error(err);
+        res.status(500).send({ message: err } || "Error occured while attempting to add a user");
     }
-    
 }
 
 // Find/Create a user that is provided through oAuthProvider
@@ -182,7 +225,26 @@ userController.updateAUser = async function(req, res) {
 // Delete a User
 userController.deleteAUser = async function(req, res) {
     //#swagger.tags=['User routes']
+    const userId = new ObjectId(req.params.id);
+    console.log(`UserId: ${userId}`);  // for testing purpose
 
+    try {
+        const response = await mongodb.getDb().db(dbName).collection(userCollectionName).deleteOne({ _id: userId });
+        console.log(response);  // for visualizing and testing purpose
+        if (response.acknowledged && response.deletedCount > 0) {
+            const msg = `User with User-id: ${userId}; has been deleted successfully`;
+            console.log(msg);  // testing purpose
+            res.status(200).send({message: msg});
+        } else {
+            const msg = `fail to delete User with User-id: ${userId};\nPosible Error: Provided User id not found: ${userId}`;
+            console.log(msg);  // for testing purpose
+            res.status(404).send({message: msg});
+        }
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err) || "Error occured while deleting User";
+    }
 }
 
 // EXPORT CONTROLLER

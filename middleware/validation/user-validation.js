@@ -48,22 +48,6 @@ validate.addNewUserRules = () => {
                     if (!emailRegex.test(emailValue)) {
                         throw new Error("invalid email format: please enter a valid email address e.g 'example@example.com'");
                     }
-
-                    // check if email was changed
-                    /*if (req.session.user.email != emailValue) {
-                        // check if email doesn't already exist in db
-                        try {
-                            const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
-                            const userData = await usersDb.findOne({ email: emailValue });
-                            console.log(userData);  // for visualizing and testing purpose
-                            if (userData && userData.email != emailValue) {
-                                // authenticate using accountType
-                                throw new Error("email already exist");
-                            }
-                        } catch (err) {
-                            throw new Error(err);
-                        }
-                    }*/
                 }
             }
 
@@ -97,22 +81,6 @@ validate.addNewUserRules = () => {
                     if (usernameValue.length < 6) {
                         throw new Error("username should not be less than 6 characters");
                     }
-
-                    // check if username was changed
-                    /*if (req.session.user.username != usernameValue) {
-                        // check if username doesn't already exist in db
-                        try {
-                            const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
-                            const userData = await usersDb.findOne({ username: usernameValue });
-                            console.log(userData);  // for visualizing and testing purpose
-                            if (userData && userData.username != usernameValue) {
-                                // authenticate using accountType
-                                throw new Error("username already exist");
-                            }
-                        } catch (err) {
-                            throw new Error(err);
-                        }
-                    }*/
                 }
             }
 

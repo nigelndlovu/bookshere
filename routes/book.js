@@ -11,10 +11,10 @@ const bookController = require('../controllers/book');
 const router = express.Router();
 
 // Route to get all books
-// router.get('/', bookController.getAllbooks);
+router.get('/', bookController.getAllbooks);
 
 // Route to get book by id
-// router.get('/:id', bookController.getAbook)
+router.get('/:id', bookController.getAbook)
 
 // Route to add new book
 router.post('/',
@@ -35,9 +35,11 @@ router.put('/:id',
 );
 
 // Route to delete a book
-// router.delete('/:id',
-//     bookController.deleteAbook
-// );
+router.delete('/:id',
+    authenticate.checkLogin,
+    authenticate.isAuthenticatedAdmin,
+    bookController.deleteAbook
+);
 
 
 // EXPORT

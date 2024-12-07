@@ -4,7 +4,7 @@ const validate = {};
 
 // VALIDATE NEW Book VALUES
 validate.addNewBookRules = () => {
-    const bookGenres = ["fantasy", "science fiction", "mystery", "thriller", "romance", "horror", "historical fiction", "contemporary fiction", "literary fiction", "young adult", "dystopian", "biography", "autobiography", "self-help", "history", "science", "travel", "true crime", "philosophy", "politics", "business"];
+    const bookGenres = ["fantasy", "theology", "science fiction", "mystery", "thriller", "romance", "horror", "historical fiction", "contemporary fiction", "literary fiction", "young adult", "dystopian", "biography", "autobiography", "self-help", "history", "science", "travel", "true crime", "philosophy", "politics", "business"];
     return [
         body('title')
         .trim()
@@ -76,7 +76,7 @@ validate.checkNewBook = (req, res, next) => {
 // VALIDATE UPDATE Book
 validate.updateBookRules = () => {
     // Checks
-    const bookGenres = ["fantasy", "science fiction", "mystery", "thriller", "romance", "horror", "historical fiction", "contemporary fiction", "literary fiction", "young adult", "dystopian", "biography", "autobiography", "self-help", "history", "science", "travel", "true crime", "philosophy", "politics", "business"];
+    const bookGenres = ["fantasy", "theology", "science fiction", "mystery", "thriller", "romance", "horror", "historical fiction", "contemporary fiction", "literary fiction", "young adult", "dystopian", "biography", "autobiography", "self-help", "history", "science", "travel", "true crime", "philosophy", "politics", "business"];
     return [
         body('title')
         .trim()
