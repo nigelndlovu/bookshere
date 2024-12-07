@@ -5,7 +5,7 @@
     "description": "BookSphere Api",
     "version": "1.0.0"
   },
-  "host": "https://booksphere-bpkj.onrender.com",
+  "host": "booksphere-bpkj.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
