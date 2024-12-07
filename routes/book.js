@@ -35,9 +35,11 @@ router.put('/:id',
 );
 
 // Route to delete a book
-// router.delete('/:id',
-//     bookController.deleteAbook
-// );
+router.delete('/:id',
+    authenticate.checkLogin,  // check if user is logged in
+    authenticate.isAuthenticatedFullControl,  // check if user is at least an admin
+    bookController.deleteAbook
+);
 
 
 // EXPORT
