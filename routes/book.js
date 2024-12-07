@@ -17,9 +17,13 @@ const router = express.Router();
 // router.get('/:id', bookController.getAbook)
 
 // Route to add new book
-// router.post('/',
-//     bookController.addNewbook
-// );
+router.post('/',
+    authenticate.checkLogin,  // check if user is logged in
+    authenticate.isAuthenticatedAdmin,  // check if user is an admin at least
+    validateBook.addNewBookRules(),
+    validateBook.checkNewBook,
+    bookController.addNewbook
+);
 
 // Route to update a book
 router.put('/:id',
