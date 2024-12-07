@@ -12,19 +12,19 @@ const userCollectionName = process.env.USER_COLLECTION;  // store name of user c
 const userController = {};
 
 // Get all Users
-userController.getAllUsers = async function(req, res) {
+userController.getAllUsers = async function (req, res) {
     //#swagger.tags=['User routes']
 
 }
 
 // Get a User by User id
-userController.getAUser = async function(req, res) {
+userController.getAUser = async function (req, res) {
     //#swagger.tags=['User routes']
-    
+
 }
 
 // Create a User
-userController.addNewUser = async function(req, res) {
+userController.addNewUser = async function (req, res) {
     //#swagger.tags=['User routes']
     let userObject = {
         firstname: req.body.firstname,
@@ -35,9 +35,9 @@ userController.addNewUser = async function(req, res) {
         username: req.body.username == 'any' || req.body.username == 'null' ? null : req.body.username,
         password: req.body.password == 'any' || req.body.password == 'null' ? null : bcrypt.hashSync(req.body.password),
         oAuthProvider: req.session.user.oAuthProvider,
-        providerUserId : req.session.user.providerUserId,
+        providerUserId: req.session.user.providerUserId,
         accountType: req.session.user.accountType,
-        createdAt : req.session.user.createdAt,
+        createdAt: req.session.user.createdAt,
     };
 
     const response = await mongodb.getDb().db(dbName).collection(userCollectionName).insertOne(userObject);
@@ -46,11 +46,11 @@ userController.addNewUser = async function(req, res) {
     } else {
         res.status(500).json(response.error || 'Some error occurred while adding the user.');
     }
-    
+
 }
 
 // Find/Create a user that is provided through oAuthProvider
-userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNameAndIdObject, profile) {
+userController.findOrCreateOAuthProviderProfile = async function (oAuthProviderNameAndIdObject, profile) {
     //#swagger.tags=['User routes']
     // check and create profile based on oAuthProvider
     if (oAuthProviderNameAndIdObject.oAuthProvider == 'github') {
@@ -59,14 +59,14 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
             firstname: profile.displayName.split(' ')[0],
             lastname: profile.displayName.split(' ')[profile.displayName.split(' ').length - 1],
             email: profile._json.email ? profile._json.email : null,
-            profilePhotoUrl : profile.photos[0].value ? profile.photos[0].value : null,
+            profilePhotoUrl: profile.photos[0].value ? profile.photos[0].value : null,
             bio: profile._json.bio ? profile._json.bio : null,
             username: null,
             password: null,
             oAuthProvider: profile.provider,
-            providerUserId : profile.id,
+            providerUserId: profile.id,
             accountType: 'user',
-            createdAt : Date.now()
+            createdAt: Date.now()
         }
         return await findOrCreate(oAuthProviderNameAndIdObject, profileObject);
     }
@@ -97,13 +97,13 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
             return { status: 200, found: true, userData: find, message: msg };
         } catch (err) {
             console.error(err);
-            return message = { status: 500, found: false, userData: '', message: err} || "Error occured while trying to find or create new user";
+            return message = { status: 500, found: false, userData: '', message: err } || "Error occured while trying to find or create new user";
         }
     }
 }
 
 // Update a User
-userController.updateAUser = async function(req, res) {
+userController.updateAUser = async function (req, res) {
     //#swagger.tags=['User routes']
     // get logged in user Id
     const userId = new ObjectId(req.session.user._id);
@@ -118,25 +118,25 @@ userController.updateAUser = async function(req, res) {
         username: req.body.username == 'any' || req.body.username == 'null' ? null : req.body.username,
         password: req.body.password == 'any' || req.body.password == 'null' ? null : bcrypt.hashSync(req.body.password),
         oAuthProvider: req.session.user.oAuthProvider,
-        providerUserId : req.session.user.providerUserId,
+        providerUserId: req.session.user.providerUserId,
         accountType: req.session.user.accountType,
-        createdAt : req.session.user.createdAt,
+        createdAt: req.session.user.createdAt,
         updated: []
     };
 
     try {
         // get the previouse user timestamp and add to updateTimestamp list, to be used for the update
         const dataResult = await mongodb.getDb().db(dbName).collection(userCollectionName).find({ _id: userId });
-        dataResult.toArray((err)=> {
+        dataResult.toArray((err) => {
             if (err) {
                 logError(err);
-                return res.status(400).json({message: err});
+                return res.status(400).json({ message: err });
             }
         }).then(async (userData) => {
             // check if array is empty
             console.log(`Users: ${userData}`);  // for debugging purpose
             if (userData == null || userData == [] || userData == '') {
-                return res.status(404).json({message: `User with id: ${userId}; Not found, or is empty`});  // for debugging purpose
+                return res.status(404).json({ message: `User with id: ${userId}; Not found, or is empty` });  // for debugging purpose
             }
             // add timestamps to update
             userObject.updated = userData[0].updated != undefined ? [...userData[0].updated, Date.now()] : [Date.now()];
@@ -158,19 +158,19 @@ userController.updateAUser = async function(req, res) {
             userPassword == null || userPassword == 'null' || userPassword == 'any' || userPassword == '' ? userObject.password = userData[0].password : userObject.password = userPassword;
             userBio == null || userBio == 'null' || userBio == 'any' || userBio == '' ? userObject.bio = userData[0].bio : userObject.bio = userBio;
             userProfilePic == null || userProfilePic == 'null' || userProfilePic == 'any' || userProfilePic == '' ? userObject.profilePhotoUrl = userData[0].profilePhotoUrl : userObject.profilePhotoUrl = userProfilePic;
-            
+
 
             // update db with UserObject
-            const response = await mongodb.getDb().db(dbName).collection(userCollectionName).replaceOne({_id: userId}, userObject);
+            const response = await mongodb.getDb().db(dbName).collection(userCollectionName).replaceOne({ _id: userId }, userObject);
             console.log(response);  // for visualizing and testing purpose
             if (response.acknowledged && response.modifiedCount > 0) {
                 const msg = `User with User-id: ${userId}; has been updated successfully`;
                 console.log(msg);  // testing purpose
-                res.status(200).send({message: msg});
+                res.status(200).send({ message: msg });
             } else {
                 const msg = `fail to update User with User-id: ${userId};\nPosible Error: Provided User id not found: ${userId}`;
                 console.log(msg);  // for testing purpose
-                res.status(404).send({message: msg});
+                res.status(404).send({ message: msg });
             }
         })
     } catch (err) {
@@ -180,9 +180,23 @@ userController.updateAUser = async function(req, res) {
 }
 
 // Delete a User
-userController.deleteAUser = async function(req, res) {
+userController.deleteAUser = async function (req, res) {
     //#swagger.tags=['User routes']
-
+    try {
+        if (!ObjectId.isValid(req.params.id)) {
+            res.status(400).json('Must use a valid user id to delete a user.');
+        }
+        const userId = new ObjectId(req.params.id);
+        const response = await mongodb.getDb().db().collection('users').remove({ _id: userId }, true);
+        console.log(response);
+        if (response.deletedCount > 0) {
+            res.status(204).send();
+        } else {
+            res.status(500).json(response.error || 'Some error occurred while deleting the user.');
+        }
+    } catch (error) {
+        res.status(500).json(error || 'Some error occurred while deleting the user.');
+    }
 }
 
 // EXPORT CONTROLLER
