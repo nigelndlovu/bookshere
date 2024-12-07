@@ -9,7 +9,7 @@ const bookCollectionName = process.env.BOOK_COLLECTION;  // store name of user c
 const bookController = {};
 
 // Get all books
-bookController.getAllbooks = async function(req, res) {
+bookController.getAllbooks = async function (req, res) {
     //#swagger.tags=['book routes']
     try {
         const dataResult = await mongodb.getDb().db(dbName).collection(bookCollectionName).find();
@@ -29,7 +29,7 @@ bookController.getAllbooks = async function(req, res) {
 }
 
 // Get a book by book id
-bookController.getAbook = async function(req, res) {
+bookController.getAbook = async function (req, res) {
     //#swagger.tags=['book routes']
     let bookId;
     try {
@@ -63,7 +63,7 @@ bookController.getAbook = async function(req, res) {
 }
 
 // Create a book
-bookController.addNewbook = async function(req, res) {
+bookController.addNewbook = async function (req, res) {
     //#swagger.tags=['book routes']    
     let bookObject = {
         title: req.body.title,
@@ -95,7 +95,7 @@ bookController.addNewbook = async function(req, res) {
 }
 
 // Update a book
-bookController.updateAbook = async function(req, res) {
+bookController.updateAbook = async function (req, res) {
     //#swagger.tags=['book routes']
 
     // set id
@@ -121,16 +121,16 @@ bookController.updateAbook = async function(req, res) {
     try {
         // get the previouse user timestamp and add to updateTimestamp list, to be used for the update
         const dataResult = await mongodb.getDb().db(dbName).collection(bookCollectionName).find({ _id: bookId });
-        dataResult.toArray((err)=> {
+        dataResult.toArray((err) => {
             if (err) {
                 logError(err);
-                return res.status(400).json({message: err});
+                return res.status(400).json({ message: err });
             }
         }).then(async (book) => {
             // check if array is empty
             console.log(`book: ${JSON.stringify(book)}`);  // for debugging purpose
             if (book == null || book == [] || book == '') {
-                return res.status(404).json({message: `book with id: ${bookId}; Not found`});
+                return res.status(404).json({ message: `book with id: ${bookId}; Not found` });
             }
             // Add timestamp and updateTimestamp to Update bookObject
             // adding addedAt
@@ -140,16 +140,16 @@ bookController.updateAbook = async function(req, res) {
             console.log(`updatebookObject: ${JSON.stringify(bookObject)}`);  // for debugging purpose
 
             // update db with bookObject
-            const response = await mongodb.getDb().db(dbName).collection(bookCollectionName).replaceOne({_id: bookId}, bookObject);
+            const response = await mongodb.getDb().db(dbName).collection(bookCollectionName).replaceOne({ _id: bookId }, bookObject);
             console.log(response);  // for visualizing and testing purpose
             if (response.acknowledged && response.modifiedCount > 0) {
                 const msg = `book with book-id: ${bookId}; has been updated successfully`;
                 console.log(msg);  // testing purpose
-                res.status(200).send({message: msg});
+                res.status(200).send({ message: msg });
             } else {
                 const msg = `fail to update book with book-id: ${bookId};\nPosible Error: Provided book id not found: ${bookId}`;
                 console.log(msg);  // for testing purpose
-                res.status(404).send({message: msg});
+                res.status(404).send({ message: msg });
             }
         })
     } catch (err) {
@@ -159,7 +159,7 @@ bookController.updateAbook = async function(req, res) {
 }
 
 // Delete a book
-bookController.deleteAbook = async function(req, res) {
+bookController.deleteAbook = async function (req, res) {
     //#swagger.tags=['book routes']
     let bookId;
     try {

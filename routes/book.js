@@ -36,8 +36,13 @@ router.put('/:id',
 
 // Route to delete a book
 router.delete('/:id',
+<<<<<<< HEAD
     authenticate.checkLogin,
     authenticate.isAuthenticatedAdmin,
+=======
+    authenticate.checkLogin,  // check if user is logged in
+    authenticate.isAuthenticatedFullControl,  // check if user is at least an admin
+>>>>>>> 178a0c22ea34e06123bd9c36ee75c41d51e7e5fc
     bookController.deleteAbook
 );
 
