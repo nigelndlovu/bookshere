@@ -166,7 +166,14 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
 userController.updateAUser = async function(req, res) {
     //#swagger.tags=['User routes']
     // get logged in user Id (for updating only logged in user account)
-    const userId = req.session.user._id;
+    let userId;
+    try {
+        userId = new ObjectId(req.session.user._id);
+        console.log(`userId: ${userId}`);  // for testing purpose
+    } catch(err) {
+        return res.status(500).send({ error: "error occured while getting object id", posibleReason: "invalid objectId" })
+    }
+    console.log(`userId: ${userId}`); // for debugging purpose
 
     let userObject = {
         _id: userId,
