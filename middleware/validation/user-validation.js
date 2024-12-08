@@ -12,7 +12,7 @@ const userCollectionName = process.env.USER_COLLECTION;  // store name of user c
 // VALIDATE NEW User VALUES
 validate.addNewUserRules = () => {
     // Enum checks
-    const accountType = ['user', 'contributor'];
+    // const accountType = ['user', 'admin', 'fullControl'];  all user is created to have 'user' accountType
     return [
         body('firstname')
         .trim()

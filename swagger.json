@@ -269,9 +269,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "password": {
-                  "example": "any"
-                },
                 "firstname": {
                   "example": "any"
                 },
@@ -285,6 +282,9 @@
                   "example": "any"
                 },
                 "username": {
+                  "example": "any"
+                },
+                "password": {
                   "example": "any"
                 }
               }
