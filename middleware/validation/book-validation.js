@@ -58,7 +58,7 @@ validate.addNewBookRules = () => {
                     throw new Error('availableCopies can not be more than totalCopies.');
                 }
             } catch(err) {
-                throw new Error({Error: err, Why: `totalCopies and AvailableCopies must be an integer i.e. a whole number`});
+                throw new Error(`totalCopies and AvailableCopies must be an integer i.e. a whole number' ${err}`);
             }
 
             // Validate Based On 'totalCopies'
