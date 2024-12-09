@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 // CONSTANTS
 const dbName = process.env.DB_NAME;  // store database name
-const userCollectionName = process.env.user_COLLECTION;  // store name of user collection
+const userCollectionName = process.env.USER_COLLECTION;  // store name of user collection
 
 
 // CREATE user CONTROLLER OBJECT HOLDER
