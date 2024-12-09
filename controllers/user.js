@@ -5,15 +5,15 @@ const ObjectId = require('mongodb').ObjectId;
 
 // CONSTANTS
 const dbName = process.env.DB_NAME;  // store database name
-const userCollectionName = process.env.USER_COLLECTION;  // store name of user collection
+const userCollectionName = process.env.user_COLLECTION;  // store name of user collection
 
 
-// CREATE User CONTROLLER OBJECT HOLDER
+// CREATE user CONTROLLER OBJECT HOLDER
 const userController = {};
 
-// Get all Users
-userController.getAllUsers = async function(req, res) {
-    //#swagger.tags=['User routes']
+// Get all users
+userController.getAllusers = async function(req, res) {
+    //#swagger.tags=['user routes']
     try {
         const dataResult = await mongodb.getDb().db(dbName).collection(userCollectionName).find();
         dataResult.toArray((err)=> {
@@ -21,19 +21,19 @@ userController.getAllUsers = async function(req, res) {
                 logError(err);
                 return res.status(400).json({message: err});
             }
-        }).then((Users) => {
+        }).then((users) => {
             res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(Users);
+            res.status(200).send(users);
         })
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: err}) || "Error occured while trying to fetch all Users";
+        res.status(500).send({ message: err} || "Error occured while trying to fetch all users");
     }
 }
 
-// Get a User by User id
-userController.getAUser = async function(req, res) {
-    //#swagger.tags=['User routes']
+// Get a user by user id
+userController.getAuser = async function(req, res) {
+    //#swagger.tags=['user routes']
     let userId;
     try {
         userId = new ObjectId(req.params.id);
@@ -49,24 +49,24 @@ userController.getAUser = async function(req, res) {
                 logError(err);
                 return res.status(400).json({message: err});
             }
-        }).then((Users) => {
+        }).then((users) => {
             // check if array is empty
-            console.log(`Users: ${Users}`);  // for debugging purpose
-            if (Users == null || Users == [] || Users == '') {
-                return res.status(404).json({message: `User with id: ${userId}; Not found, or is empty`});
+            console.log(`users: ${users}`);  // for debugging purpose
+            if (users == null || users == [] || users == '') {
+                return res.status(404).json({message: `user with id: ${userId}; Not found, or is empty`});
             }
             res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(Users);
+            res.status(200).json(users);
         })
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: err}) || `Error occured while trying to fetch User with id: ${userId}`;
+        res.status(500).send({ message: err} || `Error occured while trying to fetch user with id: ${userId}`);
     }
 }
 
-// Create a User
-userController.addNewUser = async function(req, res) {
-    //#swagger.tags=['User routes']
+// Create a user
+userController.addNewuser = async function(req, res) {
+    //#swagger.tags=['user routes']
 
     // hash passward
     const userObject = {
@@ -78,7 +78,7 @@ userController.addNewUser = async function(req, res) {
         username: req.body.username,
         password: req.body.password,
         oAuthProvider: null,
-        providerUserId : null,
+        provideruserId : null,
         accountType: 'user',
         createdAt : Date.now()
     };
@@ -111,7 +111,7 @@ userController.addNewUser = async function(req, res) {
 
 // Find/Create a user that is provided through oAuthProvider
 userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNameAndIdObject, profile) {
-    //#swagger.tags=['User routes']
+    //#swagger.tags=['user routes']
     // check and create profile based on oAuthProvider
     if (oAuthProviderNameAndIdObject.oAuthProvider == 'github') {
         // find id in db where provider is github and userProfile id is same
@@ -124,7 +124,7 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
             username: null,
             password: null,
             oAuthProvider: profile.provider,
-            providerUserId : profile.id,
+            provideruserId : profile.id,
             accountType: 'user',
             createdAt : Date.now()
         }
@@ -135,7 +135,7 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
     async function findOrCreate(object, profileObject) {
         try {
             const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
-            const find = await usersDb.findOne({ oAuthProvider: object.oAuthProvider, providerUserId: object.profileId });
+            const find = await usersDb.findOne({ oAuthProvider: object.oAuthProvider, provideruserId: object.profileId });
             console.log(find);  // for visualizing and testing purpose
             if (!find) {
                 const response = await usersDb.insertOne(profileObject);  // if _id is not present. _id will be added to the object
@@ -162,9 +162,9 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
     }
 }
 
-// Update a User
-userController.updateAUser = async function(req, res) {
-    //#swagger.tags=['User routes']
+// Update a user
+userController.updateAuser = async function(req, res) {
+    //#swagger.tags=['user routes']
     // get logged in user Id (for updating only logged in user account)
     let userId;
     try {
@@ -185,7 +185,7 @@ userController.updateAUser = async function(req, res) {
         username: req.body.username == 'any' || req.body.username == 'null' ? null : req.body.username,
         password: req.body.password == 'any' || req.body.password == 'null' ? null : bcrypt.hashSync(req.body.password),
         oAuthProvider: req.session.user.oAuthProvider,
-        providerUserId : req.session.user.providerUserId,
+        provideruserId : req.session.user.provideruserId,
         accountType: req.session.user.accountType,
         createdAt : req.session.user.createdAt,
         updated: []
@@ -201,19 +201,19 @@ userController.updateAUser = async function(req, res) {
             }
         }).then(async (userData) => {
             // check if array is empty
-            console.log(`Users: ${userData}`);  // for debugging purpose
+            console.log(`users: ${userData}`);  // for debugging purpose
             if (userData == null || userData == [] || userData == '') {
-                return res.status(404).json({message: `User with id: ${userId}; Not found, or is empty`});  // for debugging purpose
+                return res.status(404).json({message: `user with id: ${userId}; Not found, or is empty`});  // for debugging purpose
             }
             // add timestamps to update
             userObject.updated = userData[0].updated != undefined ? [...userData[0].updated, Date.now()] : [Date.now()];
-            console.log(`updateUserObject: ${JSON.stringify(userObject)}`);  // for debugging purpose
+            console.log(`updateuserObject: ${JSON.stringify(userObject)}`);  // for debugging purpose
 
             // check and update values with their current values if they fall in the following conditions
             const userFirstName = userObject.firstname.trim().toLowerCase();
             const userLastName = userObject.lastname.trim().toLowerCase();
             const userEmail = userObject.email.trim().toLowerCase();
-            const userUsername = userObject.username.trim().toLowerCase();
+            const username = userObject.username.trim().toLowerCase();
             const userPassword = userObject.password.trim().toLowerCase();
             const userBio = userObject.bio.trim().toLowerCase();
             const userProfilePic = userObject.profilePhotoUrl.trim().toLowerCase();
@@ -221,34 +221,34 @@ userController.updateAUser = async function(req, res) {
             userFirstName == null || userFirstName == 'null' || userFirstName == 'any' || userFirstName == '' ? userObject.firstname = userData[0].firstname : userObject.firstname = userFirstName;
             userLastName == null || userLastName == 'null' || userLastName == 'any' || userLastName == '' ? userObject.lastname = userData[0].lastname : userObject.lastname = userLastName;
             userEmail == null || userEmail == 'null' || userEmail == 'any' || userEmail == '' ? userObject.email = userData[0].email : userObject.email = userEmail;
-            userUsername == null || userUsername == 'null' || userUsername == 'any' || userUsername == '' ? userObject.username = userData[0].username : userObject.username = userUsername;
+            username == null || username == 'null' || username == 'any' || username == '' ? userObject.username = userData[0].username : userObject.username = username;
             userPassword == null || userPassword == 'null' || userPassword == 'any' || userPassword == '' ? userObject.password = userData[0].password : userObject.password = userPassword;
             userBio == null || userBio == 'null' || userBio == 'any' || userBio == '' ? userObject.bio = userData[0].bio : userObject.bio = userBio;
             userProfilePic == null || userProfilePic == 'null' || userProfilePic == 'any' || userProfilePic == '' ? userObject.profilePhotoUrl = userData[0].profilePhotoUrl : userObject.profilePhotoUrl = userProfilePic;
             
 
-            // update db with UserObject
+            // update db with userObject
             const response = await mongodb.getDb().db(dbName).collection(userCollectionName).replaceOne({_id: userId}, userObject);
             console.log(response);  // for visualizing and testing purpose
             if (response.acknowledged && response.modifiedCount > 0) {
-                const msg = `User with User-id: ${userId}; has been updated successfully`;
+                const msg = `user with user-id: ${userId}; has been updated successfully`;
                 console.log(msg);  // testing purpose
                 res.status(200).send({message: msg});
             } else {
-                const msg = `fail to update User with User-id: ${userId};\nPosible Error: Provided User id not found: ${userId}`;
+                const msg = `fail to update user with user-id: ${userId};\nPosible Error: Provided user id not found: ${userId}`;
                 console.log(msg);  // for testing purpose
                 res.status(404).send({message: msg});
             }
         })
     } catch (err) {
         console.error(err);
-        res.status(500).json(err) || "Error occured while updating User";
+        res.status(500).send(err || "Error occured while updating user");
     }
 }
 
-// Delete a User
-userController.deleteAUser = async function(req, res) {
-    //#swagger.tags=['User routes']
+// Delete a user
+userController.deleteAuser = async function(req, res) {
+    //#swagger.tags=['user routes']
     let userId;
     try {
         userId = new ObjectId(req.params.id);
@@ -262,18 +262,18 @@ userController.deleteAUser = async function(req, res) {
         const response = await mongodb.getDb().db(dbName).collection(userCollectionName).deleteOne({ _id: userId });
         console.log(response);  // for visualizing and testing purpose
         if (response.acknowledged && response.deletedCount > 0) {
-            const msg = `User with User-id: ${userId}; has been deleted successfully`;
+            const msg = `user with user-id: ${userId}; has been deleted successfully`;
             console.log(msg);  // testing purpose
             res.status(200).send({message: msg});
         } else {
-            const msg = `fail to delete User with User-id: ${userId};\nPosible Error: Provided User id not found: ${userId}`;
+            const msg = `fail to delete user with user-id: ${userId};\nPosible Error: Provided user id not found: ${userId}`;
             console.log(msg);  // for testing purpose
             res.status(404).send({message: msg});
         }
         
     } catch (err) {
         console.error(err);
-        res.status(500).json(err) || "Error occured while deleting User";
+        res.status(500).send(err || "Error occured while deleting user");
     }
 }
 
