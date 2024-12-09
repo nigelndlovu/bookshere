@@ -124,7 +124,7 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
             username: null,
             password: null,
             oAuthProvider: profile.provider,
-            provideruserId : profile.id,
+            providerUserId : profile.id,
             accountType: 'user',
             createdAt : Date.now()
         }
@@ -135,7 +135,7 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
     async function findOrCreate(object, profileObject) {
         try {
             const usersDb = mongodb.getDb().db(dbName).collection(userCollectionName);
-            const find = await usersDb.findOne({ oAuthProvider: object.oAuthProvider, provideruserId: object.profileId });
+            const find = await usersDb.findOne({ oAuthProvider: object.oAuthProvider, providerUserId: object.profileId });
             console.log(find);  // for visualizing and testing purpose
             if (!find) {
                 const response = await usersDb.insertOne(profileObject);  // if _id is not present. _id will be added to the object
@@ -185,7 +185,7 @@ userController.updateAUser = async function(req, res) {
         username: req.body.username == 'any' || req.body.username == 'null' ? null : req.body.username,
         password: req.body.password == 'any' || req.body.password == 'null' ? null : bcrypt.hashSync(req.body.password),
         oAuthProvider: req.session.user.oAuthProvider,
-        provideruserId : req.session.user.provideruserId,
+        providerUserId : req.session.user.providerUserId,
         accountType: req.session.user.accountType,
         createdAt : req.session.user.createdAt,
         updated: []
@@ -207,7 +207,7 @@ userController.updateAUser = async function(req, res) {
             }
             // add timestamps to update
             userObject.updated = userData[0].updated != undefined ? [...userData[0].updated, Date.now()] : [Date.now()];
-            console.log(`updateuserObject: ${JSON.stringify(userObject)}`);  // for debugging purpose
+            console.log(`updateUserObject: ${JSON.stringify(userObject)}`);  // for debugging purpose
 
             // check and update values with their current values if they fall in the following conditions
             const userFirstName = userObject.firstname.trim().toLowerCase();
