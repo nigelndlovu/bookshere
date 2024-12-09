@@ -12,6 +12,7 @@ const router = express.Router();
 
 // Route to get all Users
 router.get('/',
+    //#swagger.tags=['users routes']
     authenticate.checkLogin,  // check if user is logged in
     authenticate.isAuthenticatedAdmin,  // check if user is at least an admin
     userController.getAllUsers

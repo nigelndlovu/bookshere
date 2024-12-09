@@ -13,7 +13,7 @@ const userController = {};
 
 // Get all users
 userController.getAllUsers = async function(req, res) {
-    //#swagger.tags=['user routes']
+    //#swagger.tags=['users routes']
     try {
         const dataResult = await mongodb.getDb().db(dbName).collection(userCollectionName).find();
         dataResult.toArray((err)=> {
@@ -33,7 +33,7 @@ userController.getAllUsers = async function(req, res) {
 
 // Get a user by user id
 userController.getAUser = async function(req, res) {
-    //#swagger.tags=['user routes']
+    //#swagger.tags=['users routes']
     let userId;
     try {
         userId = new ObjectId(req.params.id);
@@ -66,7 +66,7 @@ userController.getAUser = async function(req, res) {
 
 // Create a user
 userController.addNewUser = async function(req, res) {
-    //#swagger.tags=['user routes']
+    //#swagger.tags=['users routes']
 
     // hash passward
     const userObject = {
@@ -111,7 +111,7 @@ userController.addNewUser = async function(req, res) {
 
 // Find/Create a user that is provided through oAuthProvider
 userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNameAndIdObject, profile) {
-    //#swagger.tags=['user routes']
+    //#swagger.tags=['users routes']
     // check and create profile based on oAuthProvider
     if (oAuthProviderNameAndIdObject.oAuthProvider == 'github') {
         // find id in db where provider is github and userProfile id is same
@@ -164,7 +164,7 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
 
 // Update a user
 userController.updateAUser = async function(req, res) {
-    //#swagger.tags=['user routes']
+    //#swagger.tags=['users routes']
     // get logged in user Id (for updating only logged in user account)
     let userId;
     try {
@@ -248,7 +248,7 @@ userController.updateAUser = async function(req, res) {
 
 // Delete a user
 userController.deleteAUser = async function(req, res) {
-    //#swagger.tags=['user routes']
+    //#swagger.tags=['users routes']
     let userId;
     try {
         userId = new ObjectId(req.params.id);
