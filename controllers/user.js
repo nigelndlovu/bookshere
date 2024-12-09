@@ -12,7 +12,7 @@ const userCollectionName = process.env.user_COLLECTION;  // store name of user c
 const userController = {};
 
 // Get all users
-userController.getAllusers = async function(req, res) {
+userController.getAllUsers = async function(req, res) {
     //#swagger.tags=['user routes']
     try {
         const dataResult = await mongodb.getDb().db(dbName).collection(userCollectionName).find();
@@ -32,7 +32,7 @@ userController.getAllusers = async function(req, res) {
 }
 
 // Get a user by user id
-userController.getAuser = async function(req, res) {
+userController.getAUser = async function(req, res) {
     //#swagger.tags=['user routes']
     let userId;
     try {
@@ -65,7 +65,7 @@ userController.getAuser = async function(req, res) {
 }
 
 // Create a user
-userController.addNewuser = async function(req, res) {
+userController.addNewUser = async function(req, res) {
     //#swagger.tags=['user routes']
 
     // hash passward
@@ -163,7 +163,7 @@ userController.findOrCreateOAuthProviderProfile = async function(oAuthProviderNa
 }
 
 // Update a user
-userController.updateAuser = async function(req, res) {
+userController.updateAUser = async function(req, res) {
     //#swagger.tags=['user routes']
     // get logged in user Id (for updating only logged in user account)
     let userId;
@@ -247,7 +247,7 @@ userController.updateAuser = async function(req, res) {
 }
 
 // Delete a user
-userController.deleteAuser = async function(req, res) {
+userController.deleteAUser = async function(req, res) {
     //#swagger.tags=['user routes']
     let userId;
     try {
