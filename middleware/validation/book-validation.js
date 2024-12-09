@@ -53,12 +53,8 @@ validate.addNewBookRules = () => {
 
             const { totalCopies } = req.body;  // get the request 'totalCopies' field value from the body
             // appling extral check to make sure totalCopies is passed, becaused it's required for the validation
-            try {
-                if (parseInt(value) > parseInt(totalCopies)) {
-                    throw new Error('availableCopies can not be more than totalCopies.');
-                }
-            } catch(err) {
-                throw new Error(`totalCopies and AvailableCopies must be an integer i.e. a whole number' ${err}`);
+            if (parseInt(value) > parseInt(totalCopies)) {
+                throw new Error('availableCopies can not be more than totalCopies.');
             }
 
             // Validate Based On 'totalCopies'
@@ -129,12 +125,8 @@ validate.updateBookRules = () => {
 
             const { totalCopies } = req.body;  // get the request 'totalCopies' field value from the body
             // appling extral check to make sure totalCopies is passed, becaused it's required for the validation
-            try {
-                if (parseInt(value) > parseInt(totalCopies)) {
-                    throw new Error('availableCopies can not be more than totalCopies.');
-                }
-            } catch(err) {
-                throw new Error({Error: err, Why: `totalCopies and AvailableCopies must be an integer i.e. a whole number`});
+            if (parseInt(value) > parseInt(totalCopies)) {
+                throw new Error('availableCopies can not be more than totalCopies.');
             }
 
             // Validate Based On 'totalCopies'
