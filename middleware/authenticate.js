@@ -39,6 +39,7 @@ authenticate.isAuthenticatedAdmin = async (req, res, next) => {
         console.log(userData);  // for visualizing and testing purpose
         if (userData) {
             // authenticate using accountType in userData
+            console.log(`accountType: ${userData.accountType}`);  // for debugging purpose
             if (!adminRight.includes(userData.accountType)) {
                 return res.status(401).json({ message: "Require admin right: You don't have access." });
             }
