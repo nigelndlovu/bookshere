@@ -5,6 +5,8 @@ const bookRoute = require('./book');
 const userRoutes = require('./user');
 const loginRoutes = require('./login');
 const logoutRoute = require('./logout');
+const reviewsRoute = require('./reviews');
+const borrowRecordsRoute = require('./borrowRecords');
 
 // IMPORT CONTROLLER
 const baseController = require('../controllers')
@@ -29,6 +31,12 @@ router.use('/login', loginRoutes);
 
 // Logout
 router.use('/logout', logoutRoute);
+
+// Reviews Routes
+router.use('/reviews', reviewsRoute);
+
+// Borrow Records Routes
+router.use('/borrowRecords', borrowRecordsRoute);
 
 
 

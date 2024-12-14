@@ -5,9 +5,10 @@
     "description": "BookSphere Api",
     "version": "1.0.0"
   },
-  "host": "booksphere-bpkj.onrender.com",
+  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
+    "http",
     "https"
   ],
   "paths": {
@@ -518,6 +519,72 @@
         ],
         "description": "",
         "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reviews/{id}": {
+      "delete": {
+        "tags": [
+          "reviews routes"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/borrowRecords/{id}": {
+      "delete": {
+        "tags": [
+          "borrowRecords routes"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
