@@ -4,7 +4,8 @@
   "description": "CSE341 Web Services Team Project Assignment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test coverage": "jest --coverage",
     "dev": "nodemon server.js",
     "start": "node server.js",
     "swagger": "node swagger.js"
