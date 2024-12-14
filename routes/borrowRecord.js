@@ -41,7 +41,7 @@ router.put('/:id',
 );
 
 // pay fine on penalized borrow record
-router.put('pay-fine/:id',
+router.put('/pay-fine/:id',
     authenticate.checkLogin,
     validateRecord.payFineRules(),
     validateRecord.checkRecord,

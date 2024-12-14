@@ -36,7 +36,10 @@
     "reviews": {
         "_id": "unique_id",
         "bookId": "unique_id",
-        "userId": "unique_id",
+        "bookTitle": "title of book",
+        "bookAuthor": "author of the book",
+        "reviewer": "name of reviewer",
+        "reviewerId": "unique_id",
         "rating": 4,
         "comment": "Awesome Book!",
         "createdAt": "timestamp"
