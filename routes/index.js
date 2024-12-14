@@ -38,6 +38,12 @@ router.use('/login', loginRoutes);
 // Logout
 router.use('/logout', logoutRoute);
 
+// Reviews Routes
+router.use('/reviews', reviewsRoute);
+
+// Borrow Records Routes
+router.use('/borrowRecords', borrowRecordsRoute);
+
 
 
 // EXPORT
