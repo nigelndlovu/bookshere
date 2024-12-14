@@ -41,15 +41,19 @@ router.put('/:id',
 );
 
 // pay fine on penalized borrow record
-router.put('/:id',
+router.put('pay-fine/:id',
     authenticate.checkLogin,
     validateRecord.payFineRules(),
     validateRecord.checkRecord,
     borrowRecordController.payFine
 );
 
-// delete a borrow record
-router.delete('/:id', borrowRecordController.deleteARecord);
+// Route to delete a borrow record
+router.delete('/:id',
+    authenticate.checkLogin,
+    authenticate.isAuthenticatedAdmin,
+    borrowRecordController.deleteARecord
+);
 
 
 // EXPORT

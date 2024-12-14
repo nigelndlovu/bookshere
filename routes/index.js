@@ -9,7 +9,7 @@ const borrowRoute = require('./borrowRecord');
 const reviewRoute = require('./review');
 
 // IMPORT CONTROLLER
-const baseController = require('../controllers')
+const baseController = require('../controllers/')
 
 
 // SETUP EXPRESS ROUTER
@@ -27,7 +27,7 @@ router.use('/books', bookRoute);
 router.use('/borrow', borrowRoute);
 
 // review route
-// router.use('/review', reviewRoute);
+router.use('/review', reviewRoute);
 
 // users route
 router.use('/users', userRoutes);
@@ -37,12 +37,6 @@ router.use('/login', loginRoutes);
 
 // Logout
 router.use('/logout', logoutRoute);
-
-// Reviews Routes
-router.use('/reviews', reviewsRoute);
-
-// Borrow Records Routes
-router.use('/borrowRecords', borrowRecordsRoute);
 
 
 
