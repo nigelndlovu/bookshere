@@ -15,7 +15,7 @@ bookController.getAllbooks = async function (req, res) {
         const dataResult = await mongodb.getDb().db(dbName).collection(bookCollectionName).find();
         dataResult.toArray((err)=> {
             if (err) {
-                logError(err);
+                console.log(err);
                 return res.status(400).json({message: err});
             }
         }).then((books) => {
@@ -34,22 +34,22 @@ bookController.getAbook = async function (req, res) {
     let bookId;
     try {
         bookId = new ObjectId(req.params.id);
-        console.log(`bookId: ${bookId}`);  // for testing purpose
+        // console.log(`bookId: ${bookId}`);  // for testing purpose
     } catch(err) {
         return res.status(500).send({ error: "error occured while getting object id", posibleReason: "invalid objectId" })
     }
-    console.log(`bookId: ${bookId}`); // for debugging purpose
+    // console.log(`bookId: ${bookId}`); // for debugging purpose
 
     try {
         const dataResult = await mongodb.getDb().db(dbName).collection(bookCollectionName).find({_id: bookId});
         dataResult.toArray((err)=> {
             if (err) {
-                logError(err);
+                console.log(err);
                 return res.status(400).json({message: err});
             }
         }).then((book) => {
             // check if array is empty
-            console.log(`books: ${book}`);  // for debugging purpose
+            // console.log(`books: ${book}`);  // for debugging purpose
             if (book == null || book == [] || book == '') {
                 return res.status(404).json({message: `book with id: ${bookId}; Not found, or is empty`});
             }

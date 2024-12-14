@@ -26,7 +26,16 @@ const getDb = () => {
   return _db;
 };
 
+const closeDb = () => {
+  if (!_db) {
+    throw Error('Db not initialized');
+  }
+  _db.close();
+  // console.log("Db Connection Closed");  // for debugging purpose
+}
+
 module.exports = {
   initDb,
   getDb,
+  closeDb
 };
