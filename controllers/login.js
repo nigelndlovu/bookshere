@@ -126,6 +126,7 @@ loginController.authenticateGithubCallBack = (req, res) => {
 
     console.log(`CURRENT USER OBJECT: ${JSON.stringify(req.user)}`);
     req.session.user = req.user;
+    console.log(`SESSION USER (@authenticateGithubCallBack): ${req.session.user}`);
     res.redirect('/');
 }
 

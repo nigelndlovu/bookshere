@@ -24,7 +24,7 @@ bookController.getAllbooks = async function (req, res) {
         })
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: err} || "Error occured while trying to fetch all books");
+        res.status(500).send({ message: err} || "Error occured while trying to fetch all books");
     }
 }
 
