@@ -94,7 +94,7 @@ loginController.loginUser = async function (req, res) {
                     res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 });
                 }
                 console.log(`USER DATA: ${JSON.stringify(userData)}`);  // for testing purpose
-                req.session.user = userData;
+                req.session.user = userData;  // try later (remove this part to see if it is still functional);
                 return res.redirect("/");
             } else {
                 return res.status(400).json({message: 'Invalid Password. Please check your passoword and try again.'});
@@ -125,7 +125,7 @@ loginController.authenticateGithubCallBack = (req, res) => {
     }
 
     console.log(`CURRENT USER OBJECT: ${JSON.stringify(req.user)}`);
-    req.session.user = req.user;
+    req.session.user = req.user;  // try later (remove this part to see if it is till functional)
     console.log(`SESSION USER (@authenticateGithubCallBack): ${req.session.user}`);
     res.redirect('/');
 }

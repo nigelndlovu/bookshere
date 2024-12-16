@@ -1,0 +1,101 @@
+[
+    {
+        "_id": {
+            "$oid": "67534ba98ef45b4511994614"
+        },
+        "firstname": "Maximiliano",
+        "lastname": "Bustios",
+        "email": null,
+        "profilePhotoUrl": "https://avatars.githubusercontent.com/u/66762728?v=4",
+        "bio": "Desarrollador apasionado en busca de desafíos creativos. Especializado en Web y Software Development. Abierto a colaboraciones y aprendizaje continuo. ",
+        "username": null,
+        "password": null,
+        "oAuthProvider": "github",
+        "providerUserId": "66762728",
+        "accountType": "fullControl",
+        "createdAt": 1733512104672
+    },
+    {
+        "_id": {
+            "$oid": "67534ca5af8bc2fc6a2efc43"
+        },
+        "firstname": "Rolando",
+        "lastname": "Bustios",
+        "email": "rolando@gmail.com",
+        "profilePhotoUrl": "",
+        "bio": "I like to play guitar",
+        "username": "rolandobustios",
+        "password": "$2a$10$xGakE1klh0fKI6cky1aBt.CRiNC8Tl2oj2oCiBDG/OOI1v.X6Zv9.",
+        "oAuthProvider": "github",
+        "providerUserId": "66762728",
+        "accountType": "fullControl",
+        "createdAt": 1733512104672
+    },
+    {
+        "_id": {
+            "$oid": "6754e0fe8e694bdabc92785a"
+        },
+        "firstname": "david",
+        "lastname": "santa",
+        "email": "davidsanta@gmail.com",
+        "profilePhotoUrl": null,
+        "bio": "nothing yet",
+        "username": "david123",
+        "password": "$2a$10$XB./UspzD82IdoHpNuYsAO0lxTUBDM5uTGLCH3oNK8VKH3s4Qa6K2",
+        "oAuthProvider": null,
+        "providerUserId": null,
+        "accountType": "user",
+        "createdAt": 1733615869777
+    },
+    {
+        "_id": {
+            "$oid": "6756510c9bbe9a1c95be6378"
+        },
+        "firstname": "Christian",
+        "lastname": "Bustios",
+        "email": "cbsd@gmail.com",
+        "profilePhotoUrl": null,
+        "bio": "This is a testing",
+        "username": "christiancesar",
+        "password": "$2a$10$EZTEdePaopsNqkf8K9CXV.Iczw.oHQ9PNs0RPsb0j8KQ6WNXN897a",
+        "oAuthProvider": null,
+        "providerUserId": null,
+        "accountType": "user",
+        "createdAt": 1733710091988
+    },
+    {
+        "_id": {
+            "$oid": "6756e4df0494e3a6a7b32aa4"
+        },
+        "firstname": "john",
+        "lastname": "opute",
+        "email": "danielcopute@gmail.com",
+        "profilePhotoUrl": "https://avatars.githubusercontent.com/u/127953813?v=4",
+        "bio": "i love progamming",
+        "username": "daniel",
+        "password": "$2a$10$zmlg9dxyiu6tuy/k0mheeodst5jceucvqhx5uekl.nxambkge0686",
+        "oAuthProvider": "github",
+        "providerUserId": "127953813",
+        "accountType": "fullControl",
+        "createdAt": 1733747935547,
+        "updated": [
+            1733749008408
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "675bd09c3f6f5720425b90ef"
+        },
+        "firstname": "admin",
+        "lastname": "admin",
+        "email": "admin@booksphere.com",
+        "profilePhotoUrl": null,
+        "bio": "admin account",
+        "username": "adminadmin",
+        "password": "$2a$10$Yyk8ph5AR//gpJ01tvaoJOMWngCsi/XxUYRHxMhSiY9kcrV2DG2O2",
+        "oAuthProvider": null,
+        "provideruserId": null,
+        "accountType": "fullControl",
+        "createdAt": 1734070428771
+    }
+]

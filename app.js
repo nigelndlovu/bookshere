@@ -31,6 +31,7 @@ dotenv.config();  // using dotenv.config to load environment variables
 *************** MIDDLEWARE *************
 ***************************************/
 // Middleware for parsing JSON requests
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -26,16 +26,18 @@ const getDb = () => {
   return _db;
 };
 
-const closeDb = () => {
-  if (!_db) {
-    throw Error('Db not initialized');
-  }
-  _db.close();
-  // console.log("Db Connection Closed");  // for debugging purpose
+const initTestDb = async () => {
+  _db = new MongoClient(process.env.MONGODB_CONNECTION_URI);
+  return await _db.connect();
 }
+
+const closeDb = async () => {
+  if (_db) await _db.close();
+};
 
 module.exports = {
   initDb,
   getDb,
-  closeDb
+  initTestDb,
+  closeDb,
 };

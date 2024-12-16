@@ -1,0 +1,31 @@
+[
+    {
+        "_id": {
+            "$oid": "675d5b55975c64e9f67b439f"
+        },
+        "bookId": {
+            "$oid": "67522929e727ed8ba3ba728c"
+        },
+        "bookTitle": "The Defence of Light",
+        "bookAuthor": "daniel opute",
+        "reviewer": "Admin Admin",
+        "reviewerId": "675bd09c3f6f5720425b90ef",
+        "reviews": [
+            {
+                "rating": "10",
+                "comment": "What a fantastic book! Nice one!",
+                "reviewer": "Admin Admin",
+                "reviewerId": "675bd09c3f6f5720425b90ef",
+                "timestamp": 1734171477015
+            },
+            {
+                "rating": "10",
+                "comment": null,
+                "reviewer": "Admin Admin",
+                "reviewerId": "675bd09c3f6f5720425b90ef",
+                "timestamp": 1734182090173
+            }
+        ],
+        "createdAt": 1734171477015
+    }
+]

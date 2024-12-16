@@ -10,16 +10,12 @@ const reviewController = require('../controllers/review');
 const router = express.Router();
 
 // Route to get all review
-router.get('/', 
-    authenticate.checkLogin,
-    authenticate.isAuthenticatedAdmin,
+router.get('/',
     reviewController.getAllReviews
 )
 
 // Route to get a review
 router.get('/:id',
-    authenticate.checkLogin,
-    authenticate.isAuthenticatedAdmin,
     reviewController.getAReview
 )
 

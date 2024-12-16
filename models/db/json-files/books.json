@@ -1,0 +1,71 @@
+[
+    {
+      "_id": "67522929e727ed8ba3ba728c",
+      "title": "The Defence of Light",
+      "author": "daniel opute",
+      "genre": "mystery",
+      "publishedDate": "2024-05-16",
+      "summary": "A young man who struggled to show everyone arraound him that Christ is the author of everything good.",
+      "totalCopies": "10",
+      "availableCopies": 10,
+      "createdAt": "10001000",
+      "updateInfo": [
+        {
+          "editor_id": "675154f6dce7cf8210d37209",
+          "editor_name": "Daniel Opute",
+          "updateTimestamp": 1733437793268
+        }
+      ]
+    },
+    {
+      "_id": "67528de899df7681793bac5d",
+      "title": "Harry Potter",
+      "author": "Maximiliano Bustios",
+      "genre": "fantasy",
+      "publishedDate": "1997-12-07",
+      "summary": "a lot of magic",
+      "totalCopies": "50",
+      "availableCopies": 50
+    },
+    {
+      "_id": "67542f6023657ca42c35f7cc",
+      "title": "Maximiliano Book",
+      "author": "Maximiliano",
+      "genre": "fantasy",
+      "publishedDate": "2024-03-12",
+      "summary": "a very good book about programming",
+      "totalCopies": "5",
+      "availableCopies": "5"
+    },
+    {
+      "_id": "6754bc7d4c5f3be7a27d8ed6",
+      "title": "The Book of Mormon",
+      "author": "The Church of Jesus Christ of Latter-day Saints",
+      "genre": "theology",
+      "publishedDate": "1830-03-26",
+      "summary": "The Book of Mormon is about God&#x27;s interactions with his people in the Western Hemisphere in ancient times.",
+      "totalCopies": "100",
+      "availableCopies": "100",
+      "addedAt": 1733606525585,
+      "updateInfo": [
+        {
+          "librarain_id": "675154f6dce7cf8210d37209",
+          "librarain_name": "Daniel Opute",
+          "updateTimestamp": 1733606826821
+        }
+      ]
+    },
+    {
+      "_id": "6756505f9bbe9a1c95be6377",
+      "title": "Maximiliano Book",
+      "author": "Maximiliano Bustios",
+      "genre": "fantasy",
+      "publishedDate": "2024-02-11",
+      "summary": "This is for testing",
+      "totalCopies": "10",
+      "availableCopies": "10",
+      "addedAt": 1733709919802,
+      "addedBy": "Maximiliano Bustios",
+      "librarian_id": "67534ba98ef45b4511994614"
+    }
+  ]

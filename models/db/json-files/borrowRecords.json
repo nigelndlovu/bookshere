@@ -1,0 +1,86 @@
+[
+    {
+        "_id": {
+            "$oid": "675c22d04114feb3356a5d11"
+        },
+        "bookId": {
+            "$oid": "67522929e727ed8ba3ba728c"
+        },
+        "bookTitle": "The Defence of Light",
+        "bookAuthor": "daniel opute",
+        "bookGenre": "mystery",
+        "borrowedBy": "Admin Admin",
+        "borrowerId": "675bd09c3f6f5720425b90ef",
+        "borrowDate": {
+            "$date": "2024-12-13T12:04:32.242Z"
+        },
+        "returnDate": "2024-12-14",
+        "acknowledgePenalty": "I acknowledge",
+        "isReturned": true,
+        "returnId": "8246436",
+        "returnedBy": "Admin Admin",
+        "returnerId": "675bd09c3f6f5720425b90ef",
+        "actualReturnDate": {
+            "$date": "2024-12-14T05:02:14.059Z"
+        },
+        "penalise": true,
+        "fineId": 3148798,
+        "finePayed": true,
+        "payedBy": "Admin Admin",
+        "payerId": "675bd09c3f6f5720425b90ef"
+    },
+    {
+        "_id": {
+            "$oid": "675d1760455c7d18fd35386e"
+        },
+        "bookId": {
+            "$oid": "67528de899df7681793bac5d"
+        },
+        "bookTitle": "Harry Potter",
+        "bookAuthor": "Maximiliano Bustios",
+        "bookGenre": "fantasy",
+        "borrowedBy": "Admin Admin",
+        "borrowerId": "675bd09c3f6f5720425b90ef",
+        "borrowDate": {
+            "$date": "2024-12-14T05:28:00.240Z"
+        },
+        "returnDate": "2024-12-13T24:00:00.000+00:00",
+        "acknowledgePenalty": "true",
+        "isReturned": true,
+        "returnId": "8348987",
+        "returnedBy": "Admin Admin",
+        "returnerId": "675bd09c3f6f5720425b90ef",
+        "actualReturnDate": {
+            "$date": "2024-12-14T05:33:54.862Z"
+        },
+        "penalise": true,
+        "finePayed": false,
+        "fineId": 1135876
+    },
+    {
+        "_id": {
+            "$oid": "675e1a9ae01a07bd1ff13d12"
+        },
+        "bookId": {
+            "$oid": "67522929e727ed8ba3ba728c"
+        },
+        "bookTitle": "The Defence of Light",
+        "bookAuthor": "daniel opute",
+        "bookGenre": "mystery",
+        "borrowedBy": "John Opute",
+        "borrowerId": "6756e4df0494e3a6a7b32aa4",
+        "borrowDate": {
+            "$date": "2024-12-14T23:54:02.021Z"
+        },
+        "returnDate": "2024-12-16T24:00:00.000+00:00",
+        "acknowledgePenalty": "I acknowledge",
+        "isReturned": true,
+        "returnId": "6252228",
+        "returnedBy": "John Opute",
+        "returnerId": "6756e4df0494e3a6a7b32aa4",
+        "actualReturnDate": {
+            "$date": "2024-12-14T23:55:27.588Z"
+        },
+        "penalise": false
+    }
+]
