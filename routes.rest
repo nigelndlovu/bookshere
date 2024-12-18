@@ -35,7 +35,61 @@ content-type: application/json
 
 
 ### Delete a Book
-DELETE http://localhost:5000/books/67528de899df7681793bad42 HTTP/1.1
+DELETE http://localhost:5000/books/67528de899df7681793bad42 HTTP/1.
+
+
+### Get All review
+GET http://localhost:5000/review
+
+### Get Review By Id
+GET http://localhost:5000/review/675d5b55975c64e9f67b439f
+
+### Add New Review
+POST http://localhost:5000/review HTTP/1.1
+content-type: application/json
+
+{
+    "bookTitle": "The Defence of Light",
+    "bookAuthor": "daniel opute",
+    "reviewer": "Admin Admin",
+    "reviews": [
+        {
+            "rating": "10",
+            "comment": "What a fantastic book! Nice one!",
+            "reviewer": "Admin Admin",
+        },
+        {
+            "rating": "10",
+            "comment": null,
+            "reviewer": "Admin Admin",
+        }
+    ],
+}
+
+### Update a Review
+PUT http://localhost:5000/review/675d5b55975c64e9f67b439f HTTP/1.1
+content-type: application/json
+
+{
+    "bookTitle": "The Defence of Light",
+    "bookAuthor": "daniel opute",
+    "reviewer": "Admin Admin",
+    "reviews": [
+        {
+            "rating": "10",
+            "comment": "What a fantastic book! Nice one!",
+            "reviewer": "Admin Admin",
+        },
+        {
+            "rating": "10",
+            "comment": null,
+            "reviewer": "Admin Admin",
+        }
+    ],
+}
+
+### Delete a Review
+DELETE http://localhost:5000/review/675d5b55975c64e9f67b439f HTTP/1.1
 
 
 
@@ -79,3 +133,33 @@ content-type: application/json
 ### Delete a Book
 DELETE https://booksphere-bpkj.onrender.com/books/67522929e727ed8ba3ba73d3 HTTP/1.1
 
+
+### Get All Reviews
+GET https://booksphere-bpkj.onrender.com/review/ HTTP/1.1
+
+### Get Review By Id
+GET https://booksphere-bpkj.onrender.com/review/675d5b55975c64e9f67b439f HTTP/1.1
+
+### Add New Review
+POST https://booksphere-bpkj.onrender.com/review HTTP/1.1
+content-type: application/json
+
+{
+    "bookId": "675d5b55975c64e9f67b439f",
+    "reviewerName": "John Doe",
+    "rating": 5,
+    "comment": "An excellent book!"
+}
+
+### Update a Review
+PUT https://booksphere-bpkj.onrender.com/review/675d5b55975c64e9f67b439f HTTP/1.1
+content-type: application/json
+
+{
+    "reviewerName": "Jane Doe",
+    "rating": 4,
+    "comment": "A very good book, but could use more examples."
+}
+
+### Delete a Review
+DELETE https://booksphere-bpkj.onrender.com/review/675d5b55975c64e9f67b439f HTTP/1.1
