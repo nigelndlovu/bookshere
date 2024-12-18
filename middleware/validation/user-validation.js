@@ -220,15 +220,9 @@ validate.updateUserRules = () => {
         body('password')
         .custom((value, { req }) => {
             const passwordValue = value.trim();
-            if (passwordValue != null) {
-                if (passwordValue == '' || passwordValue == null || passwordValue == 'null' || passwordValue == 'any') {
-                    req.body.password = null;  // set email to null;  // this is not working
-                } else {
-                    const passwordRegex = /^[a-zA-Z0-9]{7,}$/;
-                    if (!passwordRegex.test(passwordValue)) {
-                        throw new Error("password must be at least 7 characters long and aplphanumeric.");
-                    }
-                }
+            const passwordRegex = /^[a-zA-Z0-9]{7,}$/;
+            if (!passwordRegex.test(passwordValue)) {
+                throw new Error("password must be at least 7 characters long and aplphanumeric.");
             }
 
             return true;
