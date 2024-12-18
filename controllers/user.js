@@ -182,8 +182,8 @@ userController.updateAUser = async function(req, res) {
         email: req.body.email,
         profilePhotoUrl: req.body.profilePhotoUrl,
         bio: req.body.bio,
-        username: req.body.username == 'any' || req.body.username == 'null' ? null : req.body.username,
-        password: req.body.password == 'any' || req.body.password == 'null' ? null : bcrypt.hashSync(req.body.password),
+        username: req.body.username,
+        password: req.body.password,
         oAuthProvider: req.session.user.oAuthProvider,
         providerUserId : req.session.user.providerUserId,
         accountType: req.session.user.accountType,
@@ -222,7 +222,7 @@ userController.updateAUser = async function(req, res) {
             userLastName == null || userLastName == 'null' || userLastName == 'any' || userLastName == '' ? userObject.lastname = userData[0].lastname : userObject.lastname = userLastName;
             userEmail == null || userEmail == 'null' || userEmail == 'any' || userEmail == '' ? userObject.email = userData[0].email : userObject.email = userEmail;
             username == null || username == 'null' || username == 'any' || username == '' ? userObject.username = userData[0].username : userObject.username = username;
-            userPassword == null || userPassword == 'null' || userPassword == 'any' || userPassword == '' ? userObject.password = userData[0].password : userObject.password = userPassword;
+            userPassword == null || userPassword == 'null' || userPassword == 'any' || userPassword == '' ? userObject.password = userData[0].password : userObject.password = bcrypt.hashSync(userPassword);  // hash password
             userBio == null || userBio == 'null' || userBio == 'any' || userBio == '' ? userObject.bio = userData[0].bio : userObject.bio = userBio;
             userProfilePic == null || userProfilePic == 'null' || userProfilePic == 'any' || userProfilePic == '' ? userObject.profilePhotoUrl = userData[0].profilePhotoUrl : userObject.profilePhotoUrl = userProfilePic;
             
